@@ -7,18 +7,21 @@
 </head>
 <body>
     <table>
+
         <thead>
-            
+            <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Ações</th>
+            </tr>
         </thead>
+        
 
         <tbody>
 
             @forelse ($users as $user)
-                <tr>
-                    <th>Nome</th>
-                    <th>Email</th>
-                    <th>Ações</th>
-                </tr>
+            
+                
 
                 <tr>
                     <td>{{ $user->name }}</td>
@@ -33,6 +36,8 @@
 
         </tbody>
     </table>
+
+    {{ $users->links() }}
 </body>
 
 </html>
