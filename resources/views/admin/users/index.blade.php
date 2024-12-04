@@ -6,6 +6,8 @@
     <title>Document</title>
 </head>
 <body>
+
+    <a href="{{route('users.create')}}">Novo</a>
     <table>
 
         <thead>
@@ -20,9 +22,6 @@
         <tbody>
 
             @forelse ($users as $user)
-            
-                
-
                 <tr>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>

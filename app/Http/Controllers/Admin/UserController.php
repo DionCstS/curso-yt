@@ -12,9 +12,21 @@ use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
-    public function index() {
+    public function index() 
+    {
         $users = User::paginate(15);//User::all();
         return view('admin.users.index', compact('users'));
+    }
+
+    public function create()
+    {
+        return view('admin.users.create');
+    }
+
+    public function store(Request $request)
+    {
+        User::create($request->all());
+        return redirect()->route('user.index');
     }
 }
 
