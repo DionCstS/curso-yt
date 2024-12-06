@@ -5,6 +5,12 @@
 <h1>Usuários</h1>
 
 <a href="{{route('users.create')}}">Novo</a>
+
+@if (session()->has('success'))
+    {{ session('success') }}
+@endif
+
+
 <table>
 
     <thead>
