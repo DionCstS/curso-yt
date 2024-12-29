@@ -11,6 +11,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
+
+
+
+
+
+
+
+
 {
     public function index() 
     {
@@ -59,6 +67,31 @@ class UserController extends Controller
         ->with('success', 'Usuário Editado com Sucesso');
 
         
+    }
+
+    public function show(string $id) 
+    {
+        if (!$user = User::find($id)) {
+            return redirect()->route('users.index')->with('message', 'Usuário não encontrado');
+        }
+
+        return view('admin.users.show', compact('user'));
+    }
+
+    public function destroy(string $id) 
+    {
+        if (!$user = User::find($id)) {
+            return redirect()->route('users.index')->with('message', 'Usuário não encontrado');
+        }
+
+        if (Auth::user()->id === $user->id) {
+            return back()->with('message', 'Você não pode deletar o seu própio perfil');
+        }
+        $user->delete();
+
+        return redirect()
+            ->route('users.index')
+            ->with('success', 'Usuário deletado com sucesso');
     }
 }
 
