@@ -3,20 +3,26 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Middleware\CheckIfIsAdmin;
 
-Route::delete('users/{user}/destroy', [UserController::class, 'destroy'])->name('users.destroy');
-Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
-Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
-Route::post('/users', [UserController::class, 'store'])->name('users.store');
-Route::get('/users/create', [UserController::class, 'create'])->name( 'users.create');
-Route::get('/users', [UserController::class, 'index'])->name('users.index');
-Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+Route::middleware('auth')->group( function() {
+
+    Route::delete('users/{user}/destroy', [UserController::class, 'destroy'])->name('users.destroy')->middleware(CheckIfIsAdmin::class);
+    Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
+    Route::get('/users/create', [UserController::class, 'create'])->name( 'users.create');
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+
+});
+
 
 
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
